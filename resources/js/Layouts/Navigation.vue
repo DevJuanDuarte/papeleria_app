@@ -1,5 +1,5 @@
 <template>
-    <aside class="z-20 hidden w-64 overflow-y-auto bg-purple-900 md:block flex-shrink-0">
+    <aside class="z-20 hidden w-64 overflow-y-auto bg-sky-950 md:block flex-shrink-0">
         <div class="py-4 text-white">
             <Link class="ml-6 text-lg font-bold text-white" :href="route('dashboard')">
             Library
@@ -35,7 +35,7 @@
                 </li>
 
                 <li class="relative px-6 py-3">
-                    <NavLink :href="route('about')" :active="route().current('about')">
+                    <NavLink :href="route('authors.index')" :active="route().current('authors.index')">
                         <template #icon>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -50,7 +50,7 @@
 
                 <li class="relative px-6 py-3">
                     <button @click="showingTwoLevelMenu = !showingTwoLevelMenu"
-                        class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+                        class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-200"
                         aria-haspopup="true">
                         <span class="inline-flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -66,14 +66,19 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </button>
-                    <ul v-show="showingTwoLevelMenu"
+                    <ul v-show="showingTwoLevelMenu || route().current('books.index') || route().current('books.create')"
                         class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                         aria-label="submenu">
                         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
-                            <a class="w-full" href="#">List</a>
+                            <!-- <a class="w-full" href="#">List</a> -->
+                            <NavLink :href="route('books.index')" :active="route().current('books.index')">
+                                List
+                            </NavLink>
                         </li>
                         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
-                            <a class="w-full" href="#">Create</a>
+                            <NavLink :href="route('books.create')" :active="route().current('books.index')">
+                                Create
+                            </NavLink>
                         </li>
                     </ul>
                 </li>
@@ -86,6 +91,7 @@
 import NavLink from '@/Components/NavLink.vue'
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue'
+import { route } from '../../../vendor/tightenco/ziggy/src/js/index';
 
 export default {
     components: {

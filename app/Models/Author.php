@@ -11,14 +11,20 @@ class Author extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name' , 'last_name', 'country_id'];
+    protected $fillable = ['name', 'last_name', 'country_id'];
 
-    //Relacion de muchos autores hacia los libros porque cada autor puede escribir muchos libros y a su vez un libro puede ser escritos por muchos autores.
-    public function books(): BelongsToMany {
+    //MUCHOS A MUCHOS: Relacion de muchos autores hacia los libros porque cada autor puede escribir muchos libros y a su vez un libro puede ser escritos por muchos autores.
+    public function books(): BelongsToMany
+    {
         return $this->belongsToMany(Book::class);
     }
 
-    public function country(): BelongsTo {
+    // Tipo de relación: Esta es una relación de uno a muchos inversa.
+    // Descripción: Cada autor (Author) pertenece a un país (Country). Esto implica que en la tabla authors hay una columna country_id que actúa como llave foránea y que referencia a la llave primaria en la tabla countries.
+    // Inversa: La relación belongsTo es la inversa de hasMany o hasOne, lo que significa que, aunque un país puede tener muchos autores, cada autor solo pertenece a un país.
+
+    public function country(): BelongsTo
+    {
         return $this->belongsTo(Country::class);
     }
 }

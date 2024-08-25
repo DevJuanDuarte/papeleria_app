@@ -10,7 +10,7 @@
         leave-active-class="transition ease-in-out duration-150" leave-from-class="opacity-100"
         leave-to-class="opacity-0 transform -translate-x-20">
         <aside v-show="$page.props.showingMobileMenu"
-            class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-purple-900 md:hidden">
+            class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-sky-950 md:hidden">
             <div class="py-4 text-white">
                 <Link class="ml-6 text-lg font-bold text-white" :href="route('dashboard')">
                 Library
@@ -45,7 +45,7 @@
                     </li>
 
                     <li class="relative px-6 py-3">
-                        <ResponsiveNavLink :href="route('about')" :active="route().current('about')">
+                        <ResponsiveNavLink :href="route('authors.index')" :active="route().current('authors.index')">
                             <template #icon>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -75,14 +75,18 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </button>
-                        <ul v-show="showingTwoLevelMenu"
+                        <ul v-show="showingTwoLevelMenu || route().current('books.index') || route().current('books.create')"
                             class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                             aria-label="submenu">
                             <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-20">
-                                <a class="w-full" href="#">List</a>
+                                <ResponsiveNavLink :href="route('books.index')"
+                                    :active="route().current('books.index')">List
+                                </ResponsiveNavLink>
                             </li>
                             <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-20">
-                                <a class="w-full" href="#">Create</a>
+                                <ResponsiveNavLink :href="route('books.create')"
+                                    :active="route().current('books.create')">Create
+                                </ResponsiveNavLink>
                             </li>
                         </ul>
                     </li>
